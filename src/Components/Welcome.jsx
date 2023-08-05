@@ -10,40 +10,36 @@ const Welcome = ({ imageSrc, text, imageSrc2 }) => {
   return (
     <div className="">
       <div className="relative">
-        <div className="w-screen h-[20vh] tablet:hidden">
+        <div className="w-screen h-[40vh] absolute top-0 tablet:hidden">
           <img
             src={imageSrc2}
             alt=""
-            className="w-screen h-[20vh] rounded-b-full"
+            className="w-screen h-[40vh] rounded-b-full"
           />
         </div>
         <img
-          src={isMobile ? imageSrc : Car}
+          src={Car}
           alt=""
-          className={
-            isMobile
-              ? "tablet:w-screen tablet:h-screen tablet:object-cover tablet:relative"
-              : "fixed top-0 w-screen h-[500px]"
-          }
+          className="absolute top-16 w-screen h-[250px] tablet:w-screen tablet:h-screen object-cover "
         />
         <div
           className="
           tablet:absolute tablet:top-0 tablet:left-0 tablet:w-screen 
           tablet:h-screen tablet:bg-secondary tablet:opacity-90"
         ></div>
-        <div className="tablet:absolute tablet:top-0">
+        <div className="tablet:absolute tablet:top-0 relative">
           <img
             src={viteLogo}
             alt=""
             className="hidden tablet:block tablet:w-[150px] laptop:w-[200px]"
           />
           <div
-            className="flex flex-col mt-[50px] w-screen tablet:h-[60vh] tablet:mt-0 
+            className="flex flex-col w-screen h-[100vh] tablet:h-[60vh] tablet:mt-0 
           items-center justify-center"
           >
             <h1
-              className="text-dark text-subHeadingText font-bold font-headingFont
-            tablet:text-primary tablet:text-headingText"
+              className="text-dark text-subHeadingText font-bold font-headingFont mt-[200px]
+            tablet:text-primary tablet:text-headingText tablet:mt-0"
             >
               Welcome to <span className="text-tertiary">Router</span>
             </h1>

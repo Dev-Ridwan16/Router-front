@@ -1,10 +1,9 @@
 import React, { useState } from "react"
 import "./Styles/Signup.css"
 import OtherOptions from "./OtherOptions"
-import { imageSrc } from "../../data"
 import AuthToggle from "./AuthToggle"
-import viteLogo from "/vite.svg"
 import axios from "axios"
+import Message from "./Message"
 
 const Signup = () => {
   const [userInput, setUserInput] = useState({
@@ -14,6 +13,17 @@ const Signup = () => {
     password: "",
   })
   const [isToggle, setIsToggle] = useState(false)
+  const [message, setMessage] = useState("")
+  const [icons, setIcons] = useState({
+    success: "fa-solid fa-circle-check",
+    warning: "fa-solid fa-user-group",
+    danger: "fa-solid fa-triangle-exclamation",
+  })
+  const [iconColor, setIconColor] = useState({
+    success: "success",
+    warning: "warning",
+    danger: "danger",
+  })
 
   const changeHandler = (event) => {
     const { name, value } = event.target
@@ -35,18 +45,38 @@ const Signup = () => {
       .then((res) => {
         console.log(res.data)
 
-        window.location.href = "/home"
+        if (res.status === 201) {
+          setMessage(res.data.message)
+          setIcons(icons.success)
+          setIconColor(iconColor.success)
+          setTimeout(() => {
+            window.location.href = "/home"
+          }, 3000)
+        } else if (res.status === 500) {
+          setMessage("An error occurred")
+          setIcons(icons.danger)
+        }
       })
       .catch((err) => {
+        if (err.response && err.response.status === 409) {
+          setMessage("User with the same email already exists")
+          setIcons(icons.warning)
+          setIconColor(iconColor.warning)
+          setTimeout(() => {
+            // window.location.href = "/signup"
+            return
+          }, 2000)
+        } else {
+          setMessage("An error occurred")
+          setIcons(icons.danger)
+          setIconColor(iconColor.danger)
+        }
         console.error(err)
       })
   }
 
   return (
-    <div
-      className={`absolute  }
-          h-auto w-auto relative`}
-    >
+    <div className="">
       <h1
         className="text-subHeadingText font-medium font-headingFont 
              text-tertiary text-center "
@@ -57,6 +87,13 @@ const Signup = () => {
         className="w-[400px] flex flex-col items-center justify-center mx-auto mt-5 rounded-lg "
         onSubmit={handleSubmit}
       >
+        {message && (
+          <Message
+            icons={icons}
+            message={message}
+            iconColor={iconColor}
+          />
+        )}
         <div className="flex flex-row gap-10">
           <div className="form_child_container">
             <label htmlFor="firstname">Firstname</label>

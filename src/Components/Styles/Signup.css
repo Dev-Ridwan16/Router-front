@@ -20,5 +20,5 @@
 }
 
 .form_child_container input {
-    @apply w-[300px] h-8 border outline-none mt-2 bg-transparent p-3 text-bodyText text-primary laptop:text-dark
+    @apply w-[300px] h-8 border outline-none mt-2 bg-transparent p-3 text-bodyText text-dark
 }

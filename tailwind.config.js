@@ -31,6 +31,10 @@ export default {
         tertiary: "#007BFF",
         dark: "#000000",
         grey: "#778899",
+        success: "#10B24B",
+        warning: "#f0ad4e",
+        danger: "#FF5252",
+        info: "#3895FF",
       },
     },
     animation: {
