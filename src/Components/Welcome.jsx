@@ -14,7 +14,7 @@ const Welcome = ({ imageSrc, text, imageSrc2 }) => {
           <img
             src={imageSrc2}
             alt=""
-            className="w-screen h-[20vh] rounded-b-[50vh]"
+            className="w-screen h-[15vh] rounded-b-[50vh]"
           />
         </div>
         <img
