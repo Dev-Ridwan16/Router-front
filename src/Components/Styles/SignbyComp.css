@@ -1,0 +1,8 @@
+.app_goog {
+    @apply w-[130px] h-[50px] text-dark text-[10px] 
+    bg-grey bg-opacity-10 flex flex-col items-center justify-center
+    rounded-md
+}
+.fa-brands {
+    @apply text-base
+}

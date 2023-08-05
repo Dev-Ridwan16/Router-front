@@ -1,0 +1,24 @@
+.signup-container {
+    transition: right 0.3s ease-out;
+    @apply fixed top-0 right-[-100]  bg-tertiary bg-opacity-30 w-screen h-screen laptop:h-auto laptop:w-auto laptop:bg-opacity-0 laptop:relative
+}
+
+.signup-container.visible {
+    @apply right-0
+}
+
+.form_child_container {
+    @apply flex flex-col mb-2
+}
+
+.form_child_container label {
+    @apply font-bodyFont text-bodyText text-dark
+}
+
+.form_child_container input.names {
+    @apply w-[130px]
+}
+
+.form_child_container input {
+    @apply w-[300px] h-8 border outline-none mt-2 bg-transparent p-3 text-bodyText text-primary laptop:text-dark
+}
