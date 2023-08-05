@@ -1,6 +1,5 @@
 import React from "react"
 import viteLogo from "/vite.svg"
-// import ReactTyped from "react-typed"
 import { Typewriter } from "react-simple-typewriter"
 import { useNavigate } from "react-router-dom"
 import Car from "../assets/images/Car.png"
@@ -11,11 +10,11 @@ const Welcome = ({ imageSrc, text, imageSrc2 }) => {
   return (
     <div className="">
       <div className="relative">
-        <div className="w-screen h-[60vh] tablet:hidden">
+        <div className="w-screen h-[20vh] tablet:hidden">
           <img
             src={imageSrc2}
             alt=""
-            className="w-screen h-[60vh] rounded-b-[50vh]"
+            className="w-screen h-[20vh] rounded-b-[50vh]"
           />
         </div>
         <img
@@ -48,19 +47,6 @@ const Welcome = ({ imageSrc, text, imageSrc2 }) => {
             >
               Welcome to <span className="text-tertiary">Router</span>
             </h1>
-            {/* <ReactTyped
-              strings={[
-                "Explore with Car Booking Made Easy!",
-                "Wherever You Go, We've Got Your Ride!",
-                "Discover Convenience with Router!",
-              ]}
-              typeSpeed={50}
-              backSpeed={30}
-              backDelay={2000}
-              loop
-              className="text-secondary text-bodyText mt-5 font-regular
-              tablet:text-primary tablet:text-subHeadingText tablet:mt-10"
-            /> */}
             <span
               className="text-secondary text-bodyText mt-5 font-regular
               tablet:text-primary tablet:text-subHeadingText tablet:mt-10"
