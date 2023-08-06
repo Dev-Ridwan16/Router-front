@@ -10,21 +10,21 @@ const Welcome = ({ imageSrc, text, imageSrc2 }) => {
   return (
     <div className="">
       <div className="relative">
-        <div className="w-screen h-[40vh] absolute top-0 tablet:hidden">
+        <div className="w-screen h-[50vh] absolute top-0 tablet:hidden">
           <img
             src={imageSrc2}
             alt=""
-            className="w-screen h-[40vh] rounded-b-full"
+            className="w-screen h-[50vh] rounded-b-full"
           />
         </div>
         <img
           src={Car}
           alt=""
-          className="absolute top-16 w-screen h-[250px] tablet:w-screen tablet:h-screen object-cover "
+          className="absolute w-screen h-[250px] tablet:w-screen tablet:h-screen table:top-0 object-cover "
         />
         <div
           className="
-          tablet:absolute tablet:top-0 tablet:left-0 tablet:w-screen 
+          tablet:absolute tablet:top-0 tablet:left-0 tablet:w-screen
           tablet:h-screen tablet:bg-secondary tablet:opacity-90"
         ></div>
         <div className="tablet:absolute tablet:top-0 relative">
@@ -34,7 +34,7 @@ const Welcome = ({ imageSrc, text, imageSrc2 }) => {
             className="hidden tablet:block tablet:w-[150px] laptop:w-[200px]"
           />
           <div
-            className="flex flex-col w-screen h-[100vh] tablet:h-[60vh] tablet:mt-0 
+            className="flex flex-col w-screen h-[100vh] tablet:h-[60vh] tablet:mt-0
           items-center justify-center"
           >
             <h1

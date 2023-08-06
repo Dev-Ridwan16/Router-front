@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import "./Styles/Signup.css"
 import OtherOptions from "./OtherOptions"
-import { imageSrc } from "../../data"
-import viteLogo from "/vite.svg"
 import AuthToggle from "./AuthToggle"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
   const [userInput, setUserInput] = useState({
@@ -13,6 +14,7 @@ const Login = () => {
     password1: "",
   })
   const [isToggle, setIsToggle] = useState(true)
+  const navigate = useNavigate()
 
   const handleToggle = () => {
     setIsToggle(!isToggle)
@@ -30,13 +32,21 @@ const Login = () => {
     event.preventDefault()
 
     axios
-      .post("https://router-backend.onrender.com/user-details/login", userInput)
+      .post("https://router-backend.onrender.com/login", userInput)
       .then((res) => {
         const token = res.data.token
 
         localStorage.setItem("token", token)
-
-        window.location.href = "/home"
+        if (res.status === 200) {
+          toast.success(res.data.message)
+          setTimeout(() => {
+            navigate("/home")
+          }, 6000)
+        } else if (res.status === 404) {
+          toast.error(res.data.message)
+        } else if (res.status === 401) {
+          toast.warning(res.data.message)
+        }
       })
       .catch((err) => {
         console.error("Login faild:", err)
@@ -57,6 +67,7 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="w-[400px] flex flex-col items-center justify-center mx-auto mt-5 rounded-lg "
       >
+        <ToastContainer />
         <div className="form_child_container">
           <label htmlFor="firstname">Email</label>
           <input

@@ -1,9 +1,11 @@
 import React, { useState } from "react"
-import "./Styles/Signup.css"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import { useNavigate } from "react-router-dom"
 import OtherOptions from "./OtherOptions"
 import AuthToggle from "./AuthToggle"
+import "./Styles/Signup.css"
 import axios from "axios"
-import Message from "./Message"
 
 const Signup = () => {
   const [userInput, setUserInput] = useState({
@@ -13,17 +15,7 @@ const Signup = () => {
     password: "",
   })
   const [isToggle, setIsToggle] = useState(false)
-  const [message, setMessage] = useState("")
-  const [icons, setIcons] = useState({
-    success: "fa-solid fa-circle-check",
-    warning: "fa-solid fa-user-group",
-    danger: "fa-solid fa-triangle-exclamation",
-  })
-  const [iconColor, setIconColor] = useState({
-    success: "success",
-    warning: "warning",
-    danger: "danger",
-  })
+  const navigate = useNavigate()
 
   const changeHandler = (event) => {
     const { name, value } = event.target
@@ -41,35 +33,26 @@ const Signup = () => {
     event.preventDefault()
 
     axios
-      .post("https://router-backend.onrender.com/user-details", userInput)
+      .post("https://router-backend.onrender.com/sign-up", userInput)
       .then((res) => {
         console.log(res.data)
 
         if (res.status === 201) {
-          setMessage(res.data.message)
-          setIcons(icons.success)
-          setIconColor(iconColor.success)
+          toast.success(res.data.message)
           setTimeout(() => {
-            window.location.href = "/home"
-          }, 3000)
+            navigate("/home")
+          }, 6000)
         } else if (res.status === 500) {
-          setMessage("An error occurred")
-          setIcons(icons.danger)
+          toast.error(res.data.message)
         }
       })
       .catch((err) => {
         if (err.response && err.response.status === 409) {
-          setMessage("User with the same email already exists")
-          setIcons(icons.warning)
-          setIconColor(iconColor.warning)
+          toast.warning(err.response.data.message)
           setTimeout(() => {
-            // window.location.href = "/signup"
             return
           }, 2000)
         } else {
-          setMessage("An error occurred")
-          setIcons(icons.danger)
-          setIconColor(iconColor.danger)
         }
         console.error(err)
       })
@@ -87,13 +70,7 @@ const Signup = () => {
         className="w-[400px] flex flex-col items-center justify-center mx-auto mt-5 rounded-lg "
         onSubmit={handleSubmit}
       >
-        {message && (
-          <Message
-            icons={icons}
-            message={message}
-            iconColor={iconColor}
-          />
-        )}
+        <ToastContainer />
         <div className="flex flex-row gap-10">
           <div className="form_child_container">
             <label htmlFor="firstname">Firstname</label>
