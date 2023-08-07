@@ -52,7 +52,6 @@ const Signup = () => {
           setTimeout(() => {
             return
           }, 2000)
-        } else {
         }
         console.error(err)
       })

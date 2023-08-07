@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom"
 const Login = () => {
   const [userInput, setUserInput] = useState({
     email: "",
-    password1: "",
+    password: "",
   })
   const [isToggle, setIsToggle] = useState(true)
   const navigate = useNavigate()
@@ -32,7 +32,7 @@ const Login = () => {
     event.preventDefault()
 
     axios
-      .post("https://router-backend.onrender.com/login", userInput)
+      .post(`https://router-backend.onrender.com/login`, userInput)
       .then((res) => {
         const token = res.data.token
 
@@ -42,13 +42,14 @@ const Login = () => {
           setTimeout(() => {
             navigate("/home")
           }, 6000)
-        } else if (res.status === 404) {
-          toast.error(res.data.message)
-        } else if (res.status === 401) {
-          toast.warning(res.data.message)
         }
       })
       .catch((err) => {
+        if (err.response && err.response.status === 404) {
+          toast.error(err.response.data.message)
+        } else if (err.response && err.response.status === 401) {
+          toast.warning(err.response.data.message)
+        }
         console.error("Login faild:", err)
       })
   }
@@ -85,8 +86,8 @@ const Login = () => {
 
           <input
             type="password"
-            name="password1"
-            value={userInput.firstname}
+            name="password"
+            value={userInput.password}
             onChange={changeHandler}
           />
         </div>
