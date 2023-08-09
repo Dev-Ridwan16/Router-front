@@ -108,7 +108,7 @@ const Login = () => {
               </div>
               <div className="flex items-center justify-center">
                 <Field
-                  type="password"
+                  type={isPasswordVisible ? "text" : "password"}
                   name="password"
                   id="password"
                   validate={validatePassword}
