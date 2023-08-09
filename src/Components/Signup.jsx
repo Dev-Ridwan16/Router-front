@@ -1,11 +1,28 @@
 import React, { useState } from "react"
-import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
 import { useNavigate } from "react-router-dom"
+import { ToastContainer, toast } from "react-toastify"
+import { AuthToggle, HeaderToggle } from "./AuthToggle"
+import { Formik, Form, Field } from "formik"
+import { validateEmail, validatePassword } from "../../data"
+import * as Yup from "yup"
 import OtherOptions from "./OtherOptions"
-import AuthToggle from "./AuthToggle"
-import "./Styles/Signup.css"
 import axios from "axios"
+import "react-toastify/dist/ReactToastify.css"
+import "./Styles/Signup.css"
+import PasswordVisible from "./PasswordVisible"
+
+const SignupSchema = Yup.object().shape({
+  firstname: Yup.string()
+    .min(2, "Too short!")
+    .max(20, null)
+    .required("Required"),
+
+  lastname: Yup.string().min(2, "Too short!").max(5, null).required("Required"),
+
+  email: Yup.string().email("Invalid email").required("Required"),
+
+  password: Yup.string().required("Required"),
+})
 
 const Signup = () => {
   const [userInput, setUserInput] = useState({
@@ -15,6 +32,7 @@ const Signup = () => {
     password: "",
   })
   const [isToggle, setIsToggle] = useState(false)
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const navigate = useNavigate()
 
   const changeHandler = (event) => {
@@ -30,7 +48,7 @@ const Signup = () => {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    // event.preventDefault()
 
     axios
       .post("https://router-backend.onrender.com/sign-up", userInput)
@@ -56,75 +74,101 @@ const Signup = () => {
         console.error(err)
       })
   }
-
+  const handlePasswordVisible = () => {
+    setIsPasswordVisible(!isPasswordVisible)
+  }
   return (
     <div className="">
       <h1
         className="text-subHeadingText font-medium font-headingFont 
              text-tertiary text-center "
       >
-        Create account
+        <HeaderToggle isToggle={isToggle} />
       </h1>
-      <form
-        className="w-[400px] flex flex-col items-center justify-center mx-auto mt-5 rounded-lg "
+      <ToastContainer />
+      <Formik
+        initialValues={userInput}
+        validationSchema={SignupSchema}
         onSubmit={handleSubmit}
       >
-        <ToastContainer />
-        <div className="flex flex-row gap-10">
-          <div className="form_child_container">
-            <label htmlFor="firstname">Firstname</label>
-            <input
-              type="text"
-              name="firstname"
-              value={userInput.firstname}
-              onChange={changeHandler}
-              className="names"
+        {({ errors, touched, isValidating }) => (
+          <Form className="w-[400px] flex flex-col items-center justify-center mx-auto mt-5 rounded-lg ">
+            <div className="flex flex-row gap-10">
+              <div className="form_child_container">
+                <label htmlFor="firstname">Firstname</label>
+                <Field
+                  type="text"
+                  name="firstname"
+                  id="firstname"
+                  className="w-[130px] h-8 border outline-none mt-2 bg-transparent p-3 text-bodyText text-dark]"
+                />
+                {errors.firstname && touched.firstname ? (
+                  <div className="field-error">{errors.firstname}</div>
+                ) : null}
+              </div>
+              <div className="form_child_container">
+                <label htmlFor="lastname">Lastname</label>
+                <Field
+                  type="text"
+                  name="lastname"
+                  id="lastname"
+                  className="w-[130px]  h-8 border outline-none mt-2 bg-transparent p-3 text-bodyText text-dark"
+                />
+                {errors.lastname && touched.lastname ? (
+                  <div className="field-error">{errors.lastname}</div>
+                ) : null}
+              </div>
+            </div>
+            <div className="form_child_container">
+              <label htmlFor="email">Email</label>
+              <Field
+                type="email"
+                name="email"
+                validate={validateEmail}
+                id="email "
+                className="inputs"
+              />
+              {errors.email && touched.email ? (
+                <div className="field-error">{errors.email}</div>
+              ) : null}
+            </div>
+            <div className="form_child_container">
+              <label htmlFor="password">Password</label>
+              <div className="flex items-center justify-center">
+                <Field
+                  type={isPasswordVisible ? "text" : "password"}
+                  name="password"
+                  validate={validatePassword}
+                  id="password"
+                  className="inputs"
+                />
+                <PasswordVisible
+                  handlePasswordVisible={handlePasswordVisible}
+                  isPasswordVisible={isPasswordVisible}
+                />
+              </div>
+
+              {errors.password && touched.password ? (
+                <div className="field-error w-[300px]">{errors.password}</div>
+              ) : null}
+            </div>
+            <AuthToggle
+              isToggle={isToggle}
+              handleToggle={handleToggle}
             />
-          </div>
-          <div className="form_child_container">
-            <label htmlFor="firstname">Lastname</label>
-            <input
-              type="text"
-              name="lastname"
-              value={userInput.lastname}
-              onChange={changeHandler}
-              className="names"
-            />
-          </div>
-        </div>
-        <div className="form_child_container">
-          <label htmlFor="firstname">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={userInput.email}
-            onChange={changeHandler}
-          />
-        </div>
-        <div className="form_child_container">
-          <label htmlFor="firstname">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={userInput.password}
-            onChange={changeHandler}
-          />
-        </div>
-        <AuthToggle
-          isToggle={isToggle}
-          handleToggle={handleToggle}
-        />
-        <div className="w-[200px] mx-auto mt-5">
-          <button
-            type="submit"
-            className="bg-tertiary h-[30px] w-[200px] rounded 
+            <div className="w-[200px] mx-auto mt-5">
+              <button
+                type="submit"
+                className="bg-tertiary h-[30px] w-[200px] rounded 
             text-primary text-bodyText font-regular"
-          >
-            Sign up
-          </button>
-        </div>
-        <OtherOptions />
-      </form>
+              >
+                Sign up
+              </button>
+            </div>
+            <OtherOptions />
+          </Form>
+        )}
+      </Formik>
     </div>
   )
 }

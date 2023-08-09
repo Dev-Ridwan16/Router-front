@@ -1,12 +1,21 @@
 import React, { useState } from "react"
-import "./Styles/Signup.css"
-import OtherOptions from "./OtherOptions"
-import AuthToggle from "./AuthToggle"
-import axios from "axios"
-import { Link } from "react-router-dom"
+import { AuthToggle, HeaderToggle } from "./AuthToggle"
 import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import { Formik, Form, Field } from "formik"
 import { useNavigate } from "react-router-dom"
+import { validateEmail, validatePassword } from "../../data"
+import { Link } from "react-router-dom"
+import OtherOptions from "./OtherOptions"
+import axios from "axios"
+import * as Yup from "yup"
+import "react-toastify/dist/ReactToastify.css"
+import "./Styles/Signup.css"
+import PasswordVisible from "./PasswordVisible"
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Require"),
+  password: Yup.string().required("Require"),
+})
 
 const Login = () => {
   const [userInput, setUserInput] = useState({
@@ -14,6 +23,7 @@ const Login = () => {
     password: "",
   })
   const [isToggle, setIsToggle] = useState(true)
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const navigate = useNavigate()
 
   const handleToggle = () => {
@@ -26,6 +36,10 @@ const Login = () => {
       ...prevUserInput,
       [name]: value,
     }))
+  }
+
+  const handlePasswordVisible = () => {
+    setIsPasswordVisible(!isPasswordVisible)
   }
 
   const handleSubmit = (event) => {
@@ -62,9 +76,72 @@ const Login = () => {
         className=" text-subHeadingText font-medium font-headingFont 
              mt-10 text-tertiary"
       >
-        Login your account
+        <HeaderToggle isToggle={isToggle} />
       </h1>
-      <form
+      <ToastContainer />
+      <Formik
+        initialValues={userInput}
+        validationSchema={LoginSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ errors, touched, isValidating }) => (
+          <Form className="w-[400px] flex flex-col items-center justify-center mx-auto mt-5 rounded-lg">
+            <div className="form_child_container">
+              <label htmlFor="email">Email</label>
+              <Field
+                type="email"
+                name="email"
+                id="email"
+                validate={validateEmail}
+                className="inputs"
+              />
+              {errors.email && touched.email ? (
+                <div className="field-error">{errors.email}</div>
+              ) : null}
+            </div>
+            <div className="form_child_container">
+              <div className="flex justify-between items-center">
+                <label htmlFor="password">Password</label>
+                <Link className="text-[10px] text-tertiary">
+                  Can't remember
+                </Link>
+              </div>
+              <div className="flex items-center justify-center">
+                <Field
+                  type="password"
+                  name="password"
+                  id="password"
+                  validate={validatePassword}
+                  className="inputs"
+                />
+                <PasswordVisible
+                  handlePasswordVisible={handlePasswordVisible}
+                  isPasswordVisible={isPasswordVisible}
+                />
+              </div>
+
+              {errors.email && touched.email ? (
+                <div className="field-error w-[300px]">{errors.password}</div>
+              ) : null}
+            </div>
+            <AuthToggle
+              isToggle={isToggle}
+              handleToggle={handleToggle}
+            />
+            <div className="w-[200px] mx-auto mt-5">
+              <button
+                type="submit"
+                className="bg-tertiary h-[30px] w-[200px] rounded 
+                  text-primary font-regular"
+              >
+                Log in
+              </button>
+            </div>
+            <OtherOptions />
+          </Form>
+        )}
+      </Formik>
+      {/* <form
         onSubmit={handleSubmit}
         className="w-[400px] flex flex-col items-center justify-center mx-auto mt-5 rounded-lg "
       >
@@ -105,7 +182,7 @@ const Login = () => {
           </button>
         </div>
         <OtherOptions />
-      </form>
+      </form> */}
     </div>
   )
 }

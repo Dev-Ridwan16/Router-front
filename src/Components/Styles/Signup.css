@@ -15,10 +15,14 @@
     @apply font-bodyFont text-bodyText text-dark
 }
 
-.form_child_container input.names {
+.form_child_containe .names {
     @apply w-[130px]
 }
 
-.form_child_container input {
+.form_child_container .inputs {
     @apply w-[300px] h-8 border outline-none mt-2 bg-transparent p-3 text-bodyText text-dark
+}
+
+.field-error {
+    @apply text-[8px] text-danger
 }

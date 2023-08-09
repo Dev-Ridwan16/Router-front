@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-const AuthToggle = ({ isToggle, handleToggle }) => {
+export const AuthToggle = ({ isToggle, handleToggle }) => {
   return (
     <div className="text-bodyText text-dark flex gap-5 w-[300px] mx-auto">
       <span>
@@ -17,4 +17,6 @@ const AuthToggle = ({ isToggle, handleToggle }) => {
   )
 }
 
-export default AuthToggle
+export const HeaderToggle = ({ isToggle }) => {
+  return <span>{!isToggle ? "Create an account" : "Login your account"}</span>
+}
