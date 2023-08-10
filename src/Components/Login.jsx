@@ -13,8 +13,8 @@ import "./Styles/Signup.css"
 import PasswordVisible from "./PasswordVisible"
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Require"),
-  password: Yup.string().required("Require"),
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string().required("Required"),
 })
 
 const Login = () => {
@@ -43,7 +43,7 @@ const Login = () => {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    // event.preventDefault()
 
     axios
       .post(`https://router-backend.onrender.com/login`, userInput)
@@ -120,7 +120,7 @@ const Login = () => {
                 />
               </div>
 
-              {errors.email && touched.email ? (
+              {errors.password && touched.password ? (
                 <div className="field-error w-[300px]">{errors.password}</div>
               ) : null}
             </div>
@@ -141,48 +141,6 @@ const Login = () => {
           </Form>
         )}
       </Formik>
-      {/* <form
-        onSubmit={handleSubmit}
-        className="w-[400px] flex flex-col items-center justify-center mx-auto mt-5 rounded-lg "
-      >
-        <ToastContainer />
-        <div className="form_child_container">
-          <label htmlFor="firstname">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={userInput.email}
-            onChange={changeHandler}
-          />
-        </div>
-        <div className="form_child_container">
-          <div className="flex justify-between items-center">
-            <label htmlFor="password">Password</label>
-            <Link className="text-[10px] text-tertiary">Can't remember</Link>
-          </div>
-
-          <input
-            type="password"
-            name="password"
-            value={userInput.password}
-            onChange={changeHandler}
-          />
-        </div>
-        <AuthToggle
-          isToggle={isToggle}
-          handleToggle={handleToggle}
-        />
-        <div className="w-[200px] mx-auto mt-5">
-          <button
-            type="submit"
-            className="bg-tertiary h-[30px] w-[200px] rounded 
-                  text-primary font-regular"
-          >
-            Log in
-          </button>
-        </div>
-        <OtherOptions />
-      </form> */}
     </div>
   )
 }

@@ -78,7 +78,7 @@ const Signup = () => {
     setIsPasswordVisible(!isPasswordVisible)
   }
   return (
-    <div className="">
+    <div className="signup-container">
       <h1
         className="text-subHeadingText font-medium font-headingFont 
              text-tertiary text-center "
