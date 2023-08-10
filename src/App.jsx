@@ -5,6 +5,7 @@ import Welcome from "./Components/Welcome"
 import { Route, Routes } from "react-router-dom"
 import Home from "./Components/Home"
 import { imageSrc } from "../data"
+import Loader from "./Components/Loader"
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           element={<Home />}
         />
       </Routes>
+      {/* <Loader /> */}
     </>
   )
 }

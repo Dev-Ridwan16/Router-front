@@ -1,0 +1,27 @@
+.custom-loader {
+    width: 50px;
+    height: 28px;
+    --c: radial-gradient(farthest-side, #007BFF 90%, #0000);
+    background:
+        var(--c) 0 50%,
+        var(--c) 50% 50%,
+        var(--c) 50% 50%,
+        var(--c) 100% 50%;
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    animation: d2 1s infinite linear;
+}
+
+@keyframes d2 {
+    33% {
+        background-position: 0 0, 50% 100%, 50% 100%, 100% 0
+    }
+
+    66% {
+        background-position: 50% 0, 0 100%, 100% 100%, 50% 0
+    }
+
+    100% {
+        background-position: 50% 50%, 0 50%, 100% 50%, 50% 50%
+    }
+}

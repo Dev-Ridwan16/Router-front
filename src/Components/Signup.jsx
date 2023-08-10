@@ -2,14 +2,18 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 import { AuthToggle, HeaderToggle } from "./AuthToggle"
-import { Formik, Form, Field } from "formik"
 import { validateEmail, validatePassword } from "../../data"
-import * as Yup from "yup"
+import PasswordVisible from "./PasswordVisible"
 import OtherOptions from "./OtherOptions"
+import { Formik, Form, Field } from "formik"
+import { useDispatch, useSelector } from "react-redux"
+import { showLoader, hideLoader } from "../feature/loader/loaderSlice"
+import * as Yup from "yup"
 import axios from "axios"
 import "react-toastify/dist/ReactToastify.css"
 import "./Styles/Signup.css"
-import PasswordVisible from "./PasswordVisible"
+import "./Styles/PageTransition.css"
+import Loader from "./Loader"
 
 const SignupSchema = Yup.object().shape({
   firstname: Yup.string()
@@ -34,6 +38,8 @@ const Signup = () => {
   const [isToggle, setIsToggle] = useState(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const isLoading = useSelector((state) => state.loader.isLoading)
 
   const changeHandler = (event) => {
     const { name, value } = event.target
@@ -47,38 +53,42 @@ const Signup = () => {
     setIsToggle(!isToggle)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (values) => {
     // event.preventDefault()
 
-    axios
-      .post("https://router-backend.onrender.com/sign-up", userInput)
-      .then((res) => {
-        console.log(res.data)
+    dispatch(showLoader()) // Show loader
 
-        if (res.status === 201) {
-          toast.success(res.data.message)
-          setTimeout(() => {
-            navigate("/home")
-          }, 6000)
-        } else if (res.status === 500) {
-          toast.error(res.data.message)
-        }
-      })
-      .catch((err) => {
-        if (err.response && err.response.status === 409) {
-          toast.warning(err.response.data.message)
-          setTimeout(() => {
-            return
-          }, 2000)
-        }
-        console.error(err)
-      })
+    try {
+      const response = await axios.post(
+        "https://router-backend.onrender.com/sign-up",
+        values
+      )
+
+      if (response.status === 201) {
+        toast.success(response.data.message)
+        setTimeout(() => {
+          navigate("/home")
+        }, 6000)
+      } else if (response.status === 500) {
+        toast.error(response.data.message)
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        toast.warning(error.response.data.message)
+      } else {
+        console.error(error)
+      }
+    } finally {
+      dispatch(hideLoader()) // Hide loader after request completion
+    }
   }
   const handlePasswordVisible = () => {
     setIsPasswordVisible(!isPasswordVisible)
   }
   return (
-    <div className="signup-container">
+    <div className="">
+      {isLoading && <Loader />}
+
       <h1
         className="text-subHeadingText font-medium font-headingFont 
              text-tertiary text-center "

@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify"
 import { Formik, Form, Field } from "formik"
 import { useNavigate } from "react-router-dom"
 import { validateEmail, validatePassword } from "../../data"
+import { useDispatch, useSelector } from "react-redux"
+import { showLoader, hideLoader } from "../feature/loader/loaderSlice"
 import { Link } from "react-router-dom"
 import OtherOptions from "./OtherOptions"
 import axios from "axios"
@@ -11,6 +13,8 @@ import * as Yup from "yup"
 import "react-toastify/dist/ReactToastify.css"
 import "./Styles/Signup.css"
 import PasswordVisible from "./PasswordVisible"
+import Loader from "./Loader"
+// import loaderSlice from "../feature/loader/loaderSlice"
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -25,6 +29,8 @@ const Login = () => {
   const [isToggle, setIsToggle] = useState(true)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const isLoading = useSelector((state) => state.loader.isLoading)
 
   const handleToggle = () => {
     setIsToggle(!isToggle)
@@ -42,12 +48,14 @@ const Login = () => {
     setIsPasswordVisible(!isPasswordVisible)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (values) => {
+    dispatch(showLoader())
     axios
-      .post(`https://router-backend.onrender.com/login`, userInput)
+      .post(`https://router-backend.onrender.com/login`, values)
+
       .then((res) => {
         const token = res.data.token
-
+        dispatch(hideLoader)
         localStorage.setItem("token", token)
         if (res.status === 200) {
           toast.success(res.data.message)
@@ -57,6 +65,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
+        dispatch(hideLoader())
         if (err.response && err.response.status === 404) {
           toast.error(err.response.data.message)
         } else if (err.response && err.response.status === 401) {
@@ -70,6 +79,7 @@ const Login = () => {
       className="  
           laptop:h-auto w-auto relative flex flex-col items-center justify-center h-[80vh]"
     >
+      {isLoading && <Loader />}
       <h1
         className=" text-subHeadingText font-medium font-headingFont 
              mt-10 text-tertiary"
