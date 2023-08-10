@@ -43,8 +43,6 @@ const Login = () => {
   }
 
   const handleSubmit = (event) => {
-    // event.preventDefault()
-
     axios
       .post(`https://router-backend.onrender.com/login`, userInput)
       .then((res) => {
