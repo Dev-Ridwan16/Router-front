@@ -48,36 +48,36 @@ const Login = () => {
     setIsPasswordVisible(!isPasswordVisible)
   }
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     dispatch(showLoader())
-    axios
-      .post(`https://router-backend.onrender.com/login`, values)
-
-      .then((res) => {
-        const token = res.data.token
-        dispatch(hideLoader)
-        localStorage.setItem("token", token)
-        if (res.status === 200) {
-          toast.success(res.data.message)
-          setTimeout(() => {
-            navigate("/home")
-          }, 6000)
-        }
-      })
-      .catch((err) => {
-        dispatch(hideLoader())
-        if (err.response && err.response.status === 404) {
-          toast.error(err.response.data.message)
-        } else if (err.response && err.response.status === 401) {
-          toast.warning(err.response.data.message)
-        }
-        console.error("Login faild:", err)
-      })
+    try {
+      const response = await axios.post(
+        `https://router-backend.onrender.com/login`,
+        values
+      )
+      const token = response.data.token
+      localStorage.setItem("token", token)
+      if (response.status === 200) {
+        toast.success(response.data.message)
+        setTimeout(() => {
+          navigate("/home")
+        }, 6000)
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        toast.error(err.response.data.message)
+      } else if (err.response && err.response.status === 401) {
+        toast.warning(err.response.data.message)
+      }
+      console.error("Login faild:", err)
+    } finally {
+      dispatch(hideLoader())
+    }
   }
   return (
     <div
       className="  
-          laptop:h-auto w-auto relative flex flex-col items-center justify-center h-[80vh]"
+    laptop:h-auto w-auto relative flex flex-col items-center justify-center h-[80vh]"
     >
       {isLoading && <Loader />}
       <h1

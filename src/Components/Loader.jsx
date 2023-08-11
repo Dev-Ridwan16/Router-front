@@ -2,8 +2,8 @@ import React from "react"
 import "./Styles/Loader.css"
 const Loader = () => {
   return (
-    <div className="top-[50%] left-[50%] absolute">
-      <div class="custom-loader"></div>
+    <div className="bg-tertiary bg-opacity-5 w-screen h-screen absolute top-[-10%] ">
+      <div className="custom-loader"></div>
     </div>
   )
 }
