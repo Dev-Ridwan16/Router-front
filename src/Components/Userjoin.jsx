@@ -13,11 +13,7 @@ const Userjoin = () => {
 
   let form
   currentPath === "/login" ? (form = <Login />) : (form = <Signup />)
-  return (
-    <div className="flex flex-row items-center justify-center py-10 mx-auto">
-      {form}
-    </div>
-  )
+  return <div>{form}</div>
 }
 
 export default Userjoin

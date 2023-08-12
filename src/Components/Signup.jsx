@@ -86,7 +86,7 @@ const Signup = () => {
     setIsPasswordVisible(!isPasswordVisible)
   }
   return (
-    <div className="">
+    <div className="laptop:h-[100vh] w-auto relative flex flex-col items-center justify-center h-[80vh]">
       {isLoading && <Loader />}
 
       <h1

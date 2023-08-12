@@ -77,7 +77,7 @@ const Login = () => {
   return (
     <div
       className="  
-    laptop:h-auto w-auto relative flex flex-col items-center justify-center h-[80vh]"
+    laptop:h-[100vh] w-auto relative flex flex-col items-center justify-center h-[80vh]"
     >
       {isLoading && <Loader />}
       <h1
