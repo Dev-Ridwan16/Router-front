@@ -1,3 +1,5 @@
+import Car from "./src/assets/images/Car.png"
+
 export const imageSrc = {
   image1:
     "https://i.pinimg.com/564x/3a/82/91/3a82915baf3bdc7d6c29f1225885040a.jpg",
@@ -5,6 +7,21 @@ export const imageSrc = {
     "https://i.pinimg.com/236x/97/16/7c/97167cfeed0c40ca46a9128fba68bba6.jpg",
   text: "Whether you're commuting to work, meeting friends, or exploring new places, we've got you covered!",
 }
+
+export const routerOptions = [
+  {
+    Car: Car,
+    price: "₦ 1200",
+  },
+  {
+    Car: Car,
+    price: "₦ 2400",
+  },
+  {
+    Car: Car,
+    price: "₦ 3200",
+  },
+]
 
 export const validateEmail = (value) => {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i

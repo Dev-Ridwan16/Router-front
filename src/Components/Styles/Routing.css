@@ -1,0 +1,32 @@
+.physics-box {
+    @apply flex flex-col items-center justify-center gap-2
+}
+
+.physics-box h3 {
+    @apply text-bodyText font-bodyFont
+}
+
+.physics-box div {
+    @apply flex flex-row items-center justify-center gap-2
+}
+.physics-box div p {
+    @apply border h-[30px] w-[50px] laptop:w-[100px] rounded-lg 
+}
+.physics-box div span {
+    @apply text-bodyText laptop:hidden
+}
+.form_child_container {
+    @apply flex flex-col mb-2
+}
+
+.form_child_container label {
+    @apply font-bodyFont text-bodyText text-dark
+}
+
+.form_child_container .inputs {
+    @apply w-[250px] laptop:w-[300px] h-8 border outline-none mt-2 bg-transparent p-3 text-bodyText text-dark
+}
+
+.field-error {
+    @apply text-[8px] text-danger
+}

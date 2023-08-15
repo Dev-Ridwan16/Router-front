@@ -60,7 +60,7 @@ const Login = () => {
       if (response.status === 200) {
         toast.success(response.data.message)
         setTimeout(() => {
-          navigate("/home")
+          navigate("/router")
         }, 6000)
       }
     } catch (err) {

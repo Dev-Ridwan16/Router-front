@@ -6,7 +6,7 @@
     @apply font-bodyFont text-bodyText text-dark
 }
 
-.form_child_containe .names {
+.form_child_container .names {
     @apply w-[130px]
 }
 

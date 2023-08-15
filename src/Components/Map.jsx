@@ -11,10 +11,10 @@ const center = {
   lng: 4.2644,
 }
 
-const Home = () => {
+const Map = () => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyAUiLAMm0pDtpT0yGvME0WGWg9xOLTX-Iw",
+    googleMapsApiKey: "AIzaSyBf_ER_0Pj-SLQEUkkNXgCKkrzpy3rMadQ",
   })
 
   const [map, setMap] = useState(null)
@@ -45,4 +45,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Map

@@ -3,9 +3,8 @@ import "./App.css"
 import Userjoin from "./Components/Userjoin"
 import Welcome from "./Components/Welcome"
 import { Route, Routes } from "react-router-dom"
-import Home from "./Components/Home"
 import { imageSrc } from "../data"
-import Loader from "./Components/Loader"
+import Router from "./Components/Router"
 
 function App() {
   return (
@@ -38,8 +37,8 @@ function App() {
           }
         />
         <Route
-          path="/home"
-          element={<Home />}
+          path="/router"
+          element={<Router />}
         />
       </Routes>
       {/* <Loader /> */}

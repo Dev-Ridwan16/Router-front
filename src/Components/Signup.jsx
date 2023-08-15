@@ -12,7 +12,7 @@ import * as Yup from "yup"
 import axios from "axios"
 import "react-toastify/dist/ReactToastify.css"
 import "./Styles/Signup.css"
-import "./Styles/PageTransition.css"
+// import "./Styles/PageTransition.css"
 import Loader from "./Loader"
 
 const SignupSchema = Yup.object().shape({
@@ -29,7 +29,7 @@ const SignupSchema = Yup.object().shape({
 })
 
 const Signup = () => {
-  const [userInput, setUserInput] = useState({
+  const [userInput] = useState({
     firstname: "",
     lastname: "",
     email: "",
@@ -41,13 +41,13 @@ const Signup = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector((state) => state.loader.isLoading)
 
-  const changeHandler = (event) => {
-    const { name, value } = event.target
-    setUserInput((prevUserInput) => ({
-      ...prevUserInput,
-      [name]: value,
-    }))
-  }
+  // const changeHandler = (event) => {
+  //   const { name, value } = event.target
+  //   setUserInput((prevUserInput) => ({
+  //     ...prevUserInput,
+  //     [name]: value,
+  //   }))
+  // }
 
   const handleToggle = () => {
     setIsToggle(!isToggle)
@@ -67,7 +67,7 @@ const Signup = () => {
       if (response.status === 201) {
         toast.success(response.data.message)
         setTimeout(() => {
-          navigate("/home")
+          navigate("/router")
         }, 6000)
       } else if (response.status === 500) {
         toast.error(response.data.message)
