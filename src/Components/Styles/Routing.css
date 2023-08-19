@@ -30,3 +30,38 @@
 .field-error {
     @apply text-[8px] text-danger
 }
+
+.fa-bars {
+    @apply laptop:hidden bg-tertiary text-primary w-[30px] h-[30px] rounded-full flex items-center justify-center absolute top-5 left-5
+}
+
+.fa-times {
+    @apply laptop:hidden bg-primary text-secondary w-[30px] h-[30px] rounded-full flex items-center justify-center absolute top-5 left-[90%] ease-in-out transition-all duration-500
+}
+
+.card {
+  @apply translate-x-[-50%] left-[50%] z-0 right-0 max-w-[500px] w-[70%] h-0 bottom-0 absolute
+}
+
+.card__inner {
+  box-shadow: rgb(0 0 0 / 5%) 0px -20px 20px, rgb(0 0 0 / 10%) 0px -6px 6px,
+    rgb(0 0 0 / 3%) 0px -30px 30px;
+  @apply top-[-50px] rounded-lg w-[100%] translate-y-[-100%] h-[300px] bg-white flex justify-center items-center
+}
+
+.card__inner__scrolling {
+  @apply flex flex-col mt-10 px-[20px] h-[100%]
+}
+
+.indicatorWrapper {
+  @apply flex justify-center items-center px-10 py-5 left-0 top-0 absolute w-[100%] h-[8px] z-50
+}
+
+.indicator {
+    @apply h-[8px] w-[50px] bg-grey rounded-full
+}
+
+.keen-slider__slide {
+  min-height: auto !important;
+  @apply flex justify-center
+}

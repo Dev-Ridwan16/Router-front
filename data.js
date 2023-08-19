@@ -45,3 +45,24 @@ export const validatePassword = (value) => {
   }
   return error
 }
+
+export const navigations = [
+  {
+    title: "Payment",
+  },
+  {
+    title: "Promotions",
+  },
+  {
+    title: "My Trips",
+  },
+  {
+    title: "Expense Your Trips",
+  },
+  {
+    title: "Support",
+  },
+  {
+    title: "About",
+  },
+]

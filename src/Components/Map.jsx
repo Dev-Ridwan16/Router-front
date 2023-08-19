@@ -14,7 +14,7 @@ const center = {
 const Map = () => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyBf_ER_0Pj-SLQEUkkNXgCKkrzpy3rMadQ",
+    googleMapsApiKey: "AIzaSyAUiLAMm0pDtpT0yGvME0WGWg9xOLTX-Iw",
   })
 
   const [map, setMap] = useState(null)
@@ -32,7 +32,7 @@ const Map = () => {
   }, [])
 
   return (
-    <div className="h-[100vh] flex items-center justify-center text-tertiary text-headingText font-headingFont font-bold">
+    <div className="h-[100vh] flex items-center justify-center text-tertiary text-headingText font-headingFont font-bold z-0">
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}

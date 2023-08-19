@@ -26,10 +26,10 @@ export default {
         bold: "900",
       },
       colors: {
-        primary: "#ffffff",
+        primary: "#F0F0F0",
         secondary: "#00172e",
         tertiary: "#007BFF",
-        dark: "#000000",
+        dark: "#3E3E3E",
         grey: "#778899",
         success: "#10B24B",
         warning: "#f0ad4e",
