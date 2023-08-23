@@ -1,9 +1,7 @@
 import React, { useState } from "react"
-import Routing from "./Routing"
-import Map from "./Map"
 import Nav from "./Nav"
 import RouteLocations from "./RouteLocations"
-import Navigations from "./Navigations"
+import MapComponent from "./MapComponent"
 
 const Router = () => {
   const [isRoutingVisible, setIsRoutingVisible] = useState(false)
@@ -29,9 +27,10 @@ const Router = () => {
         <Routing />
       )} */}
       {/* <RouteLocations /> */}
-      <div className="absolute z-50">
+      <div className="absolute z-50 laptop:relative">
         <Nav />
       </div>
+      <MapComponent />
       <RouteLocations />
     </div>
   )

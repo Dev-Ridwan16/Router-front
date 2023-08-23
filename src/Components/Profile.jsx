@@ -1,8 +1,15 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import ProfilePic from "../assets/images/Profilepic.jpg"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
+import axios from "axios"
 
 const Profile = () => {
+  const [userDetails, setuserDetails] = useState({
+    firstname: "Ridwan",
+    lastname: "Adewole",
+    email: "ade@gmail.com",
+  })
+
   return (
     <div>
       <div className="flex flex-row items-center gap-3 ml-5">
@@ -13,9 +20,9 @@ const Profile = () => {
         <div className="flex flex-col text-primary">
           {/* Axios will be used to get user details from database */}
           <span className="text-subHeadingText font-bodyFont font-medium">
-            Olivia Mary
+            {userDetails.firstname} {userDetails.lastname}
           </span>
-          <span>maryolivia@gmail.com</span>
+          <span>{userDetails.email}</span>
           <Link className="text-[10px] text-tertiary">View profile</Link>
         </div>
       </div>
