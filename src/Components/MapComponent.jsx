@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import ReactMapboxGl from "react-map-gl"
+import ReactMapboxGl, { Marker } from "react-map-gl"
 
 const MapComponent = () => {
   const [viewport, setViewport] = useState({
@@ -9,6 +9,7 @@ const MapComponent = () => {
     longitude: 0,
     zoom: 10,
   })
+  const [userLocation, setUserLocation] = useState(null)
   useEffect(() => {
     // Get user's location using the browser's geolocation API
     if ("geolocation" in navigator) {
@@ -18,6 +19,9 @@ const MapComponent = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           }
+          const { latitude, longitude } = position.coords
+          setUserLocation({ latitude, longitude })
+          setUserLocation({ latitude, longitude })
           setViewport((prevViewport) => ({
             ...prevViewport,
             ...userLocation,
@@ -37,11 +41,22 @@ const MapComponent = () => {
       <ReactMapboxGl
         {...viewport}
         mapboxAccessToken="pk.eyJ1Ijoicmlkd2FuLTE2IiwiYSI6ImNsbG5vMGE4bzAzOTUzbW1xcXA0YXZ6dmMifQ.yvbNro1eTWefPv0U6pb6hw"
-        mapStyle="mapbox://styles/ridwan-16/cllnrkq6x001k01r4gavjat63"
+        mapStyle="mapbox://styles/mapbox/streets-v11"
         onMouseMove={(viewport) => {
           setViewport(viewport)
         }}
-      ></ReactMapboxGl>
+      >
+        {userLocation && (
+          <Marker
+            latitude={userLocation.latitude}
+            longitude={userLocation.longitude}
+            offsetTop={-20}
+            offsetLeft={-10}
+          >
+            <div>📍</div>
+          </Marker>
+        )}
+      </ReactMapboxGl>
     </div>
   )
 }
