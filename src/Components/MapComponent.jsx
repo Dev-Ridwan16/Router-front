@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import ReactMapboxGl, { Marker, GeolocateControl } from "react-map-gl"
+import ReactMapboxGl from "react-map-gl"
 
 const MapComponent = () => {
   const [viewport, setViewport] = useState({
@@ -41,12 +41,7 @@ const MapComponent = () => {
         onMouseMove={(viewport) => {
           setViewport(viewport)
         }}
-      >
-        <GeolocateControl
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation={true}
-        />
-      </ReactMapboxGl>
+      ></ReactMapboxGl>
     </div>
   )
 }
